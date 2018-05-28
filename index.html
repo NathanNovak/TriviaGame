@@ -6,32 +6,42 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Totally Trivial Triva</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/CSS/reset.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
     crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans|Oswald|PT+Sans" rel="stylesheet">
   <link rel="stylesheet" type="text/css" media="screen" href="assets/CSS/styles.css" />
+
 
 
 </head>
 
 <body>
-  <h1>Totally Trivial Trivia!</h1>
-
-  <h2>
-    <span>Time Remaining:</span>
-  </h2>
-
-  <p id="question"></p>
-  <div class="button">
-    <button id="answer1" class="btn btn-primary button" value="0">A.</button>
-    <button id="answer2" class="btn btn-primary button" value="1">B.</button>
-    <button id="answer3" class="btn btn-primary button" value="2">C.</button>
-    <button id="answer4" class="btn btn-primary button" value="3">D.</button>
-  </div>
-  <div class="alert alert-primary" role="alert">
-      <p class="alert"></p>
+  <div class="hero-image">
+    <div class="hero-text">
+      <h1 style="font-size:3em;">National Park Trivia!</h1>
+      <button id="start" class="btn btn-2">Start</button>
     </div>
+  </div>
+
+  <div class="qanda" id="qanda">
+    <h2>
+      <div id="quiz-time-left"></div>
+    </h2>
+    <p id="question"></p>
+    <div class="button">
+      <button id="answer1" class="btn btn-primary answer" value="0">A.</button>
+      <button id="answer2" class="btn btn-primary answer" value="1">B.</button>
+      <button id="answer3" class="btn btn-primary answer" value="2">C.</button>
+      <button id="answer4" class="btn btn-primary answer" value="3">D.</button>
+    </div>
+  </div>
+
+  <div id="gifImage">
+
+  </div>
   <div>
-    <button id="start" class="btn btn-secondary start">Start</button>
+
     <button id="next" class="btn btn-secondary next">Next</button>
   </div>
   <!-- <ol type="a">

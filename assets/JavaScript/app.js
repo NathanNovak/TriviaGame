@@ -1,8 +1,16 @@
-//variables needed 
+//hides the questions and choices until "start" gets clicked
+$(".qanda").hide();
 
 var rightAnswers = 0;
 var wrongAnswers = 0;
-var i = -1;
+
+//variable for the questions array
+var i = 0;
+var counter = 60;
+var clockRunning = false;
+var intervalId;
+var converted;
+
 //There are 5 questions 
 
 var questions = [{
@@ -30,39 +38,147 @@ var questions = [{
     answers: ["312", "226", "140", "206"],
     correctAnswer: "206"
 }]
-// console.log(questions[3].question);
+
+var stopwatch = {
+
+  time: 5,
+
+  // reset: function() {
+
+  //   stopwatch.time = 180;
+    
+
+  //   // DONE: Change the "display" div to "00:00."
+   
+
+  // },
+  start: function(){
+    
+    if (!clockRunning) {
+      
+      intervalId = setInterval(stopwatch.count, 1000);
+      clockRunning = true;
+      
+    }
+  },
+
+  count: function() {
+    stopwatch.time--;
+
+    converted = stopwatch.timeConverter(stopwatch.time);
+    $('#quiz-time-left').html("Time Left: " + converted);
+
+    //stops time when counter reaches 0:00
+    if(converted === "00:00"){
+      
+      setTimeout(function (){
+        alert("Time's Up!");
+      },1000);
+      timerStop();
+         
+  }
+  },
+  //converts seconds to minutes and seconds
+  timeConverter: function(t) {
+
+    var minutes = Math.floor(t / 60);
+    var seconds = t - (minutes * 60);
+
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+
+    if (minutes === 0) {
+      minutes = "00";
+    }
+    else if (minutes < 10) {
+      minutes = + minutes;
+    }
+
+    return minutes + ":" + seconds;
+  }
+}
 //only displays one question with 4 possible answers 
 
+function displayQuestions() {
+    var displayQuestion = questions[i].question;
+    var displayAnswers = questions[i].answers;
+    $("#question").html(displayQuestion);
+    $("#answer1").html(displayAnswers[0]);
+    $("#answer2").html(displayAnswers[1]);
+    $("#answer3").html(displayAnswers[2]);
+    $("#answer4").html(displayAnswers[3]);
+}
+
+function timerStop() {
+    clearInterval(intervalId);
+}
+// setTimeout("checkTime()", 1000);
+
+$('#start').click(function () {
+    $('.qanda').show();
+    $('#quiz-time-left').text("Time Left: 3:00")
+    stopwatch.start();
+    
+
+ });
+    //displays the questions after start is pressed
+    displayQuestions();
+    
+
 $("#next").click(function () {
+
     i = i + 1;
     //if all 5 questions displayed and there is still time on clock 
     if (i > 5) {
-        console.log("Game Over!");
+        console.log("Great Job!");
+        timerStop();
     }
-    else {
-        var displayQuestion = questions[i].question;
-        var displayAnswers = questions[i].answers;
-        $("#question").html(displayQuestion);
-        $("#answer1").html(displayAnswers[0]);
-        $("#answer2").html(displayAnswers[1]);
-        $("#answer3").html(displayAnswers[2]);
-        $("#answer4").html(displayAnswers[3]);
-    };
+    else  {
+        displayQuestions();
+        
+               
+    }
+   
 })
 
 //player selects answer by clicking on button with the class of .button (A,B,C, or D).    
-$('.button').click(function(){
+$('.answer').click(function () {
+
     var answerChosen = $(this).attr('value');
     console.log(answerChosen);
     console.log(questions[i].answers[answerChosen]);
-    if (questions[i].answers[answerChosen] === questions[i].correctAnswer){
+    if (questions[i].answers[answerChosen] === questions[i].correctAnswer) {
         console.log("Yes");
-        //$('.alert').alert(questions[i].correctAnswer +" is correct!");
+
     }
-      else {
+    else {
         console.log("No");
-      }
+    }
 })
+
+
+
+// setInterval(function() {
+      
+//   // var minutes = Math.floor(counter/60);
+//   // var seconds = counter % 60;
+//   // counter--;
+//    if (counter >= 0) {
+//       span = document.getElementById("quiz-time-left");
+    
+//       span.innerHTML = "Time Left: " + minutes + ":" + seconds;
+//    }
+//    if (counter === 0) {
+//       alert('sorry, out of time');
+//       clearInterval(counter);
+//     }
+//   }, 1000);
+
+
+
+
+
 
 // $("#a").click(function () {
 //     console.log(questions[i].answers[0]);
@@ -100,13 +216,11 @@ $('.button').click(function(){
 
 // })
 
-
-// $.each(questions, function(key, value){
-//     console.log(key, ":", value)
 // })
 
 
 //Player has 15 seconds to answer each question correctly
+var timer
 
 //If player answers correctly there is a screen that congratulates them and next question displays after a few seconds
 
