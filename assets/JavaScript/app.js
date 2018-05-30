@@ -119,8 +119,6 @@ $('#start').click(function () {
     $('.qanda').show();
     $('#quiz-time-left').text("Time Left: 3:00")
     stopwatch.start();
-    
-
  });
     //displays the questions after start is pressed
     displayQuestions();
@@ -130,14 +128,14 @@ $("#next").click(function () {
 
     i = i + 1;
     //if all 5 questions displayed and there is still time on clock 
+    
     if (i > 5) {
         console.log("Great Job!");
         timerStop();
     }
     else  {
         displayQuestions();
-        
-               
+              
     }
    
 })
@@ -150,10 +148,16 @@ $('.answer').click(function () {
     console.log(questions[i].answers[answerChosen]);
     if (questions[i].answers[answerChosen] === questions[i].correctAnswer) {
         console.log("Yes");
-
+        rightAnswers++;
+        $('#rAnswers').text(rightAnswers);
+        
+        
     }
     else {
         console.log("No");
+        wrongAnswers++;
+        $('#wAnswers').text(wrongAnswers);
+
     }
 })
 
