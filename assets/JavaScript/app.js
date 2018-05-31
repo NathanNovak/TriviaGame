@@ -1,15 +1,21 @@
 //hides the questions and choices until "start" gets clicked
 $(".qanda").hide();
+$("#imgGif").hide();
 
 var rightAnswers = 0;
 var wrongAnswers = 0;
 
 //variable for the questions array
 var i = 0;
+var rightAnswerRandom = 0;
 var counter = 60;
 var clockRunning = false;
 var intervalId;
 var converted;
+
+var rightAnswerGifs = ['assets/images/breakingbad.gif', 'assets/images/winbaby.gif', 'assets/images/owl.gif', 'assets/images/elk.gif', 'assets/images/animals.gif'];
+
+var wrongAnswerGifs = ['assets/images/annoy.gif', 'assets/images/obama.gif', 'assets/images/wrong.gif'];
 
 //There are 5 questions 
 
@@ -18,17 +24,17 @@ var questions = [{
     answers: ["Bamboo", "Hybiscus", "Red Vine", "Canabis"],
     correctAnswer: "Bamboo"
 }, {
-    question: "What is the common term for a list of things a person would like to do before they die?",
-    answers: ["Shopping List", "To Do List", "Bucket List", "Life Budget List"],
-    correctAnswer: "Bucket List"
+    question: "How many gallons of water does Crater Lake hold?",
+    answers: ["300,000", "3.5 million", "4.6 million", "1.2 million"],
+    correctAnswer: "4.6 million"
 }, {
-    question: "How many sides, in total, would three triangles and three rectangles have?",
-    answers: ["16", "21", "9", "NaN"],
-    correctAnswer: "21"
+    question: "Mammoth Cave in Kentucky has how many mapped miles?",
+    answers: ["1000", "400", "66", "150"],
+    correctAnswer: "400"
 }, {
-    question: "Which type entertainment has cars but no roads, curves but no figure, and white knuckles??",
-    answers: ["Drive-In Movie", "Camping", "Bird Watching", "Roller Coaster"],
-    correctAnswer: "Roller Coaster"
+    question: "How many dinosaur bones have been discovered in the Grand Canyon?",
+    answers: ["135", "None", "1,572", "6,826"],
+    correctAnswer: "None"
 }, {
     question: "Which Tasmanian marsupial is known for its fiery temper? ?",
     answers: ["Captin Kangaroo", "Tasmanian Devil", "Howard the Duck", "Pepe Le Pew"],
@@ -41,18 +47,9 @@ var questions = [{
 
 var stopwatch = {
 
-  time: 5,
-
-  // reset: function() {
-
-  //   stopwatch.time = 180;
-    
-
-  //   // DONE: Change the "display" div to "00:00."
-   
-
-  // },
-  start: function(){
+  time: 0,
+ 
+    start: function(){
     
     if (!clockRunning) {
       
@@ -72,8 +69,10 @@ var stopwatch = {
     if(converted === "00:00"){
       
       setTimeout(function (){
-        alert("Time's Up!");
-      },1000);
+        $(".qanda").hide();
+        $('#timeUp').html("Time's Up!");
+        $('#timeUp').show();
+    },1000);
       timerStop();
          
   }
@@ -114,51 +113,83 @@ function timerStop() {
     clearInterval(intervalId);
 }
 // setTimeout("checkTime()", 1000);
-
+//runs random gifs if answers are right
+function questionAnswerGifsRight (){
+    rightAnswerRandom = Math.floor(Math.random()* rightAnswerGifs.length);
+    document.getElementById('imgGif').src= rightAnswerGifs[rightAnswerRandom];   
+}
+//runs random gifs if answers are wrong
+function questionAnswerGifsWrong (){
+    wrongAnswerRandom = Math.floor(Math.random()* wrongAnswerGifs.length);
+    document.getElementById('imgGif').src= wrongAnswerGifs[wrongAnswerRandom];   
+}
+//displays the questions after start is pressed
 $('#start').click(function () {
+    timerStop();
+    clockRunning = false;
+    stopwatch.time= 30;
+    i = 0;
+    displayQuestions();
+
     $('.qanda').show();
-    $('#quiz-time-left').text("Time Left: 3:00")
+    $('#timeUp').hide();
+    $('#allDone').hide();
+
+    $('#quiz-time-left').text("Time Left: 00:30")
+    rightAnswers = 0;
+    $('#rAnswers').text(rightAnswers);
+    wrongAnswers = 0;
+    $('#wAnswers').text(wrongAnswers);
     stopwatch.start();
  });
-    //displays the questions after start is pressed
-    displayQuestions();
     
-
-$("#next").click(function () {
-
-    i = i + 1;
-    //if all 5 questions displayed and there is still time on clock 
-    
-    if (i > 5) {
-        console.log("Great Job!");
-        timerStop();
-    }
-    else  {
-        displayQuestions();
-              
-    }
-   
-})
-
 //player selects answer by clicking on button with the class of .button (A,B,C, or D).    
 $('.answer').click(function () {
 
     var answerChosen = $(this).attr('value');
     console.log(answerChosen);
     console.log(questions[i].answers[answerChosen]);
+    //if the answer chosen is correct
     if (questions[i].answers[answerChosen] === questions[i].correctAnswer) {
         console.log("Yes");
         rightAnswers++;
         $('#rAnswers').text(rightAnswers);
-        
-        
+        //checks to see if there is another question
+        if (i < questions.length-1){
+            i=i+1;
+            displayQuestions();
+            questionAnswerGifsRight();
+            $("#imgGif").show();
+        }
+        //if there are no more questions
+        else{
+            console.log("All Done!");
+            timerStop();
+            $(".qanda").hide();
+            $('#allDone').html("All Done!");
+            $('#allDone').show();
+
+        }
     }
+    //if answer is wrong
     else {
         console.log("No");
         wrongAnswers++;
         $('#wAnswers').text(wrongAnswers);
+        if (i < questions.length-1){
+            i=i+1;
+            displayQuestions(questions.length);
+            questionAnswerGifsWrong();
+            $("#imgGif").show();
+        }
+        else{
+            console.log("All Done!");
+            timerStop();
+            $(".qanda").hide();
 
+        }
     }
+    
 })
 
 
