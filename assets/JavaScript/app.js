@@ -127,7 +127,7 @@ function questionAnswerGifsWrong (){
 $('#start').click(function () {
     timerStop();
     clockRunning = false;
-    stopwatch.time= 30;
+    stopwatch.time= 60;
     i = 0;
     displayQuestions();
 
@@ -135,7 +135,7 @@ $('#start').click(function () {
     $('#timeUp').hide();
     $('#allDone').hide();
 
-    $('#quiz-time-left').text("Time Left: 00:30");
+    $('#quiz-time-left').text("Time Left: 01:00");
     rightAnswers = 0;
     $('#rAnswers').text(rightAnswers);
     wrongAnswers = 0;

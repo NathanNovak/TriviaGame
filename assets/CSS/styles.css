@@ -5,7 +5,7 @@ body, html {
 }
 
 .button{
-    margin: 15px 15px 15px 0px; 
+    margin: 10px 10px 10px 0px; 
 }
 
 .hero-image {
@@ -74,8 +74,8 @@ body, html {
         
     }    
     #imgGif{
-        height: 400px;
-        width: 500px;
+        height: 250px;
+        width: 350px;
     }
 }    
 @media screen and (min-width: 1560px){
