@@ -13,9 +13,9 @@ var clockRunning = false;
 var intervalId;
 var converted;
 
-var rightAnswerGifs = ['assets/images/breakingbad.gif', 'assets/images/winbaby.gif', 'assets/images/owl.gif', 'assets/images/elk.gif', 'assets/images/animals.gif'];
+var rightAnswerGifs = ['assets/images/breakingbad.gif', 'assets/images/winbaby.gif', 'assets/images/tenor.gif', 'assets/images/elk.gif', 'assets/images/animals.gif', 'assets/images/right1.gif'];
 
-var wrongAnswerGifs = ['assets/images/annoy.gif', 'assets/images/obama.gif', 'assets/images/wrong.gif'];
+var wrongAnswerGifs = ['assets/images/annoy.gif', 'assets/images/obama.gif', 'assets/images/wrong.gif', 'assets/images/wrong1.gif', 'assets/images/wrong2.gif'];
 
 //There are 5 questions 
 
@@ -36,14 +36,14 @@ var questions = [{
     answers: ["135", "None", "1,572", "6,826"],
     correctAnswer: "None"
 }, {
-    question: "Which Tasmanian marsupial is known for its fiery temper? ?",
-    answers: ["Captin Kangaroo", "Tasmanian Devil", "Howard the Duck", "Pepe Le Pew"],
-    correctAnswer: "Tasmanian Devil"
+    question: "Which National Park is the 275ft, 1900 metric ton tree, named General Sherman, in?",
+    answers: ["Florida Everglades", "Yellowstone", "Thaddeus Kosciuszko NP", "Sequoia NP"],
+    correctAnswer: "Sequoia NP"
 }, {
-    question: "How many bones does an adult human have?",
-    answers: ["312", "226", "140", "206"],
-    correctAnswer: "206"
-}]
+    question: "Almost how many waterfalls are in Yellowstone National Park?",
+    answers: ["300", "250", "100", "500"],
+    correctAnswer: "300"
+}];
 
 var stopwatch = {
 
@@ -96,7 +96,7 @@ var stopwatch = {
 
     return minutes + ":" + seconds;
   }
-}
+};
 //only displays one question with 4 possible answers 
 
 function displayQuestions() {
@@ -135,7 +135,7 @@ $('#start').click(function () {
     $('#timeUp').hide();
     $('#allDone').hide();
 
-    $('#quiz-time-left').text("Time Left: 00:30")
+    $('#quiz-time-left').text("Time Left: 00:30");
     rightAnswers = 0;
     $('#rAnswers').text(rightAnswers);
     wrongAnswers = 0;
@@ -154,12 +154,18 @@ $('.answer').click(function () {
         console.log("Yes");
         rightAnswers++;
         $('#rAnswers').text(rightAnswers);
+        questionAnswerGifsRight();
+        $("#imgGif").show(); 
+        setTimeout(function questionAnswerGifsRight(){
+            $("#imgGif").hide(); 
+        },3000);
+
         //checks to see if there is another question
         if (i < questions.length-1){
             i=i+1;
             displayQuestions();
-            questionAnswerGifsRight();
-            $("#imgGif").show();
+            
+            
         }
         //if there are no more questions
         else{
@@ -181,6 +187,9 @@ $('.answer').click(function () {
             displayQuestions(questions.length);
             questionAnswerGifsWrong();
             $("#imgGif").show();
+            setTimeout(function questionAnswerGifsWrong(){
+                $("#imgGif").hide(); 
+            },3000);
         }
         else{
             console.log("All Done!");
@@ -190,7 +199,7 @@ $('.answer').click(function () {
         }
     }
     
-})
+});
 
 
 
@@ -255,7 +264,7 @@ $('.answer').click(function () {
 
 
 //Player has 15 seconds to answer each question correctly
-var timer
+
 
 //If player answers correctly there is a screen that congratulates them and next question displays after a few seconds
 

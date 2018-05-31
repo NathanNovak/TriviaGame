@@ -3,13 +3,7 @@ body, html {
     margin: 0;
     background-color: rgb(8, 1, 1);
 }
-.answerTally{
-    font-size: 35px;
-    font-weight: bold;
-    color: aliceblue;
-    font-family: 'Merriweather', serif;
-    margin: 10em 0em 0em 1em;
-}
+
 .button{
     margin: 15px 15px 15px 0px; 
 }
@@ -22,6 +16,16 @@ body, html {
     background-size: cover;
     position: relative;
   }
+  .answerTally{
+    font-size: 35px;
+    font-weight: bold;
+    color: aliceblue;
+    font-family: 'Merriweather', serif;
+    margin: 10em 0em 0em 1em;
+    position: absolute;
+    justify-content: center;
+    
+}
   .hero-text {
     font-family: 'Merriweather', serif;
     
@@ -62,4 +66,24 @@ body, html {
 {
     color: red;
     font-size:52px;
+}
+
+@media screen and (min-width: 1024px){
+    .hero-text{
+        color: rgb(16, 247, 131);
+        
+    }    
+    #imgGif{
+        height: 400px;
+        width: 500px;
+    }
+}    
+@media screen and (min-width: 1560px){
+    .hero-text{
+        color: rgb(5, 100, 5);
+    }    
+    #imgGif{
+        height: 500px;
+        width: 600px;
+    }
 }
